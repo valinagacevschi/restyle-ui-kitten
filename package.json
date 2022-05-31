@@ -1,0 +1,31 @@
+{
+  "name": "restyle-ui-kitten",
+  "version": "1.0.0",
+  "dependencies": {
+    "@eva-design/material": "^2.1.1",
+    "@react-native-async-storage/async-storage": "~1.17.3",
+    "@shopify/restyle": "^2.1.0",
+    "@ui-kitten/components": "^5.1.2"
+  },
+  "description": "combine restyle and ui-kitten",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valinagacevschi/restyle-ui-kitten.git"
+  },
+  "keywords": [
+    "restyle",
+    "ui-kitten",
+    "eva",
+    "design"
+  ],
+  "author": "Valentin Nagacevschi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/valinagacevschi/restyle-ui-kitten/issues"
+  },
+  "homepage": "https://github.com/valinagacevschi/restyle-ui-kitten#readme"
+}
