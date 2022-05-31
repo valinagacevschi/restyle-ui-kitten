@@ -12,6 +12,7 @@ You can use either `npm` or `yarn` to add it to your project.
 `yarn add restyle-ui-kitten` or `npm install restyle-ui-kitten`
 - Supports `expo`, and `react-native`
 - Built with TypeScript
+
 Optionally, you may also install these for a custom `iconPack` and to build your own custom components:
 ```
 yarn add @shopify/restyle @eva-design/eva @ui-kitten/components react-native-svg 
