@@ -13,6 +13,7 @@ import {
   LayoutProps,
   createRestyleComponent,
   createBox,
+  createVariant,
 } from '@shopify/restyle'
 import {
   Avatar as UIAvatar,
@@ -77,7 +78,7 @@ const textRestyleFunctions = [
   spacingShorthand,
   layout,
   textShadow,
-  // createVariant({ themeKey: 'textVariants' }),
+  createVariant({ themeKey: 'textVariants' }),
 ]
 
 export const Text = createRestyleComponent<
