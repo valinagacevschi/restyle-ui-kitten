@@ -38,8 +38,8 @@ import {
   CardProps as UICardProps,
   CheckBox as UICheckBox,
   CheckBoxProps as UICheckBoxProps,
-  Input as UIInput,
-  InputProps as UIInputProps,
+  // Input as UIInput,
+  // InputProps as UIInputProps,
   List as UIList,
   ListProps as UIListProps,
   ListItem as UIListItem,
@@ -123,4 +123,4 @@ export const ViewPager = createBox<Theme, BoxProps<Theme> & UIViewPagerProps>(UI
 
 export const Pressable = createBox<Theme, BoxProps<Theme> & PressableProps>(RNPressable)
 
-export const Input = createBox<Theme, BoxProps<Theme> & UIInputProps>(UIInput)
+// export const Input = createBox<Theme, BoxProps<Theme> & UIInputProps>(UIInput)
