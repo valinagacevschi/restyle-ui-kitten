@@ -111,9 +111,6 @@ export const Calendar = createBox<Theme, BoxProps<Theme> & UICalendarProps>(UICa
 export const Card = createBox<Theme, BoxProps<Theme> & UICardProps>(UICard)
 export const CheckBox = createBox<Theme, BoxProps<Theme> & UICheckBoxProps>(UICheckBox)
 export const Divider = createBox<Theme, BoxProps<Theme> & UIDividerProps>(UIDivider)
-// export const Datepicker = createBox<Theme, BoxProps<Theme> & UIDatepickerProps>(
-//   UIDatepicker,
-// )
 export const List = createBox<Theme, BoxProps<Theme> & UIListProps>(UIList)
 export const ListItem = createBox<Theme, BoxProps<Theme> & UIListItemProps>(UIListItem)
 export const Modal = createBox<Theme, BoxProps<Theme> & UIModalProps>(UIModal)
@@ -136,8 +133,6 @@ export const Toggle = createBox<Theme, BoxProps<Theme> & UIToggleProps>(UIToggle
 export const ViewPager = createBox<Theme, BoxProps<Theme> & UIViewPagerProps>(UIViewPager)
 
 export const Pressable = createBox<Theme, BoxProps<Theme> & PressableProps>(RNPressable)
-
-// export const Input = createBox<Theme, BoxProps<Theme> & UIInputProps>(UIInput)
 
 const viewRestyleFunctions = [
   backgroundColor,
