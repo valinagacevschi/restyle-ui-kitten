@@ -10,10 +10,23 @@ import {
   textShadow,
   BoxProps,
   TextProps,
+  TextShadowProps,
   LayoutProps,
   createRestyleComponent,
   createBox,
   createVariant,
+  composeRestyleFunctions,
+  ColorProps,
+  OpacityProps,
+  VisibleProps,
+  TypographyProps,
+  SpacingProps,
+  SpacingShorthandProps,
+  BorderProps,
+  backgroundColorShorthand,
+  backgroundColor,
+  border,
+  shadow,
 } from '@shopify/restyle'
 import {
   Avatar as UIAvatar,
@@ -38,8 +51,8 @@ import {
   CardProps as UICardProps,
   CheckBox as UICheckBox,
   CheckBoxProps as UICheckBoxProps,
-  // Input as UIInput,
-  // InputProps as UIInputProps,
+  Input as UIInput,
+  InputProps as UIInputProps,
   List as UIList,
   ListProps as UIListProps,
   ListItem as UIListItem,
@@ -97,9 +110,9 @@ export const Calendar = createBox<Theme, BoxProps<Theme> & UICalendarProps>(UICa
 export const Card = createBox<Theme, BoxProps<Theme> & UICardProps>(UICard)
 export const CheckBox = createBox<Theme, BoxProps<Theme> & UICheckBoxProps>(UICheckBox)
 export const Divider = createBox<Theme, BoxProps<Theme> & UIDividerProps>(UIDivider)
-export const Datepicker = createBox<Theme, BoxProps<Theme> & UIDatepickerProps>(
-  UIDatepicker,
-)
+// export const Datepicker = createBox<Theme, BoxProps<Theme> & UIDatepickerProps>(
+//   UIDatepicker,
+// )
 export const List = createBox<Theme, BoxProps<Theme> & UIListProps>(UIList)
 export const ListItem = createBox<Theme, BoxProps<Theme> & UIListItemProps>(UIListItem)
 export const Modal = createBox<Theme, BoxProps<Theme> & UIModalProps>(UIModal)
@@ -124,3 +137,64 @@ export const ViewPager = createBox<Theme, BoxProps<Theme> & UIViewPagerProps>(UI
 export const Pressable = createBox<Theme, BoxProps<Theme> & PressableProps>(RNPressable)
 
 // export const Input = createBox<Theme, BoxProps<Theme> & UIInputProps>(UIInput)
+
+const viewRestyleFunctions = [
+  backgroundColor,
+  backgroundColorShorthand,
+  opacity,
+  visible,
+  layout,
+  spacing,
+  spacingShorthand,
+  shadow,
+  border,
+  // createVariant({ themeKey: 'textVariants' }),
+]
+
+type RestyleProps = ColorProps<Theme> &
+  OpacityProps<Theme> &
+  VisibleProps<Theme> &
+  TypographyProps<Theme> &
+  SpacingProps<Theme> &
+  SpacingShorthandProps<Theme> &
+  BorderProps<Theme> &
+  TextShadowProps<Theme>
+
+const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
+  color,
+  opacity,
+  visible,
+  typography,
+  spacing,
+  spacingShorthand,
+  textShadow,
+  border,
+])
+
+export const Datepicker = (props: BoxProps<Theme> & UIDatepickerProps): JSX.Element => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore: Unreachable code error
+  const { style } = useRestyle(restyleFunctions, props)
+  const Component = createRestyleComponent<BoxProps<Theme> & UIDatepickerProps, Theme>(
+    viewRestyleFunctions,
+    UIDatepicker,
+  )  
+  return <Component {...{ ...props }} controlStyle={style} />
+}
+
+type InputProps = UIInputProps & TextProps<Theme>
+
+export const Input = (props: BoxProps<Theme> & InputProps): JSX.Element => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore: Unreachable code error
+  const { style } = useRestyle(restyleFunctions, props)
+  const textStyles = {} as any
+  typography.map((t) => {
+    textStyles[t.property] = props[t.property]
+  })
+  const Component = createRestyleComponent<BoxProps<Theme> & InputProps, Theme>(
+    viewRestyleFunctions,
+    UIInput,
+  )
+  return <Component {...{ ...props }} textStyle={style} />
+}
