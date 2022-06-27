@@ -27,6 +27,7 @@ import {
   backgroundColor,
   border,
   shadow,
+  useRestyle,
 } from '@shopify/restyle'
 import {
   Avatar as UIAvatar,
@@ -178,7 +179,7 @@ export const Datepicker = (props: BoxProps<Theme> & UIDatepickerProps): JSX.Elem
   const Component = createRestyleComponent<BoxProps<Theme> & UIDatepickerProps, Theme>(
     viewRestyleFunctions,
     UIDatepicker,
-  )  
+  )
   return <Component {...{ ...props }} controlStyle={style} />
 }
 
@@ -188,6 +189,7 @@ export const Input = (props: BoxProps<Theme> & InputProps): JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore: Unreachable code error
   const { style } = useRestyle(restyleFunctions, props)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const textStyles = {} as any
   typography.map((t) => {
     textStyles[t.property] = props[t.property]
