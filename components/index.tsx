@@ -112,6 +112,7 @@ export const Card = createBox<Theme, BoxProps<Theme> & UICardProps>(UICard)
 export const CheckBox = createBox<Theme, BoxProps<Theme> & UICheckBoxProps>(UICheckBox)
 export const Divider = createBox<Theme, BoxProps<Theme> & UIDividerProps>(UIDivider)
 export const List = createBox<Theme, BoxProps<Theme> & UIListProps>(UIList)
+export type ListItemProps = BoxProps<Theme> & UIListItemProps
 export const ListItem = createBox<Theme, BoxProps<Theme> & UIListItemProps>(UIListItem)
 export const Modal = createBox<Theme, BoxProps<Theme> & UIModalProps>(UIModal)
 export const MenuItem = createBox<Theme, BoxProps<Theme> & UIMenuItemProps>(UIMenuItem)
