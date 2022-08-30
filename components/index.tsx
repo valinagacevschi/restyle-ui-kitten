@@ -1,4 +1,6 @@
+import React from 'react'
 import { Pressable as RNPressable, PressableProps } from 'react-native'
+import * as Haptics from 'expo-haptics'
 import {
   color,
   opacity,
@@ -100,39 +102,79 @@ export const Text = createRestyleComponent<
   Theme
 >(textRestyleFunctions, UIText)
 
+type Pressable = { 
+  onPress?: ((args: any) => void) | null 
+  onSelect?: (selected: any) => void
+}
+const withHaptics = <P extends Pressable>(Component: React.ComponentType<P>, force = false) => ({ onPress, onSelect, ...props }: any) => {
+  const onHapticPress = (args: any) => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+    onPress?.(args)
+  }
+  const onHapticSelect = (selected: any) => {
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
+    onSelect?.(selected)
+  }
+
+  return (<Component 
+    onSelect={force || onSelect ? onHapticSelect : undefined}
+    onPress={force || onPress ? onHapticPress : undefined}
+    {...props} 
+  />)
+}
+
 export const View = createBox<Theme>()
 export const Avatar = createBox<Theme, BoxProps<Theme> & UIAvatarProps>(UIAvatar)
 export const Layout = createBox<Theme, BoxProps<Theme> & UILayoutProps>(UILayout)
-export const Button = createBox<Theme, BoxProps<Theme> & UIButtonProps>(UIButton)
+export const Button = createBox<Theme, BoxProps<Theme> & UIButtonProps>(
+  withHaptics<UIButtonProps>(UIButton)
+)
 export const ButtonGroup = createBox<Theme, BoxProps<Theme> & UIButtonGroupProps>(
   UIButtonGroup,
 )
-export const Calendar = createBox<Theme, BoxProps<Theme> & UICalendarProps>(UICalendar)
-export const Card = createBox<Theme, BoxProps<Theme> & UICardProps>(UICard)
+export const Calendar = createBox<Theme, BoxProps<Theme> & UICalendarProps>(
+  withHaptics<UICalendarProps>(UICalendar)
+)
+export const Card = createBox<Theme, BoxProps<Theme> & UICardProps>(
+  withHaptics<UICardProps>(UICard)
+)
 export const CheckBox = createBox<Theme, BoxProps<Theme> & UICheckBoxProps>(UICheckBox)
 export const Divider = createBox<Theme, BoxProps<Theme> & UIDividerProps>(UIDivider)
 export const List = createBox<Theme, BoxProps<Theme> & UIListProps>(UIList)
-export const ListItem = createBox<Theme, BoxProps<Theme> & UIListItemProps>(UIListItem)
+export type ListItemProps = BoxProps<Theme> & UIListItemProps
+export const ListItem = createBox<Theme, BoxProps<Theme> & UIListItemProps>(
+  withHaptics<UIListItemProps>(UIListItem)
+)
 export const Modal = createBox<Theme, BoxProps<Theme> & UIModalProps>(UIModal)
-export const MenuItem = createBox<Theme, BoxProps<Theme> & UIMenuItemProps>(UIMenuItem)
+export const MenuItem = createBox<Theme, BoxProps<Theme> & UIMenuItemProps>(
+  withHaptics<UIMenuItemProps>(UIMenuItem)
+)
 export const Popover = createBox<Theme, BoxProps<Theme> & UIPopoverProps>(UIPopover)
 export const RangeCalendar = createBox<Theme, BoxProps<Theme> & UIRangeCalendarProps>(
-  UIRangeCalendar,
+  withHaptics<UIRangeCalendarProps>(UIRangeCalendar)
 )
 export const Radio = createBox<Theme, BoxProps<Theme> & UIRadioProps>(UIRadio)
-export const Select = createBox<Theme, BoxProps<Theme> & UISelectProps>(UISelect)
+export const Select = createBox<Theme, BoxProps<Theme> & UISelectProps>(
+  withHaptics<UISelectProps>(UISelect)
+)
 export const SelectGroup = createBox<Theme, BoxProps<Theme> & UISelectGroupProps>(
   UISelectGroup,
 )
 export const SelectItem = createBox<Theme, BoxProps<Theme> & UISelectItemProps>(
-  UISelectItem,
+  withHaptics<UISelectItemProps>(UISelectItem)
 )
-export const Tab = createBox<Theme, BoxProps<Theme> & UITabProps>(UITab)
+export const Tab = createBox<Theme, BoxProps<Theme> & UITabProps>(
+  withHaptics<UITabProps>(UITab)
+)
 export const TabBar = createBox<Theme, BoxProps<Theme> & UITabBarProps>(UITabBar)
-export const Toggle = createBox<Theme, BoxProps<Theme> & UIToggleProps>(UIToggle)
+export const Toggle = createBox<Theme, BoxProps<Theme> & UIToggleProps>(
+  withHaptics<UIToggleProps>(UIToggle)
+)
 export const ViewPager = createBox<Theme, BoxProps<Theme> & UIViewPagerProps>(UIViewPager)
 
-export const Pressable = createBox<Theme, BoxProps<Theme> & PressableProps>(RNPressable)
+export const Pressable = createBox<Theme, BoxProps<Theme> & PressableProps>(
+  withHaptics<PressableProps>(RNPressable)
+)
 
 const viewRestyleFunctions = [
   backgroundColor,
@@ -167,15 +209,15 @@ const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
   border,
 ])
 
-export const Datepicker = (props: BoxProps<Theme> & UIDatepickerProps): JSX.Element => {
+export const Datepicker = ({ onPress, onSelect, ...props }: BoxProps<Theme> & UIDatepickerProps): JSX.Element => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore: Unreachable code error
   const { style } = useRestyle(restyleFunctions, props)
   const Component = createRestyleComponent<BoxProps<Theme> & UIDatepickerProps, Theme>(
     viewRestyleFunctions,
-    UIDatepicker,
+    withHaptics<UIDatepickerProps>(UIDatepicker, true),
   )
-  return <Component {...{ ...props }} controlStyle={style} />
+  return <Component { ...props } controlStyle={style} />
 }
 
 type InputProps = UIInputProps & TextProps<Theme>
