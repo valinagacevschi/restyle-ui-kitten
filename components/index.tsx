@@ -106,7 +106,7 @@ type Pressable = {
   onPress?: ((args: any) => void) | null 
   onSelect?: (selected: any) => void
 }
-const withHaptics = <P extends Pressable>(Component: React.ComponentType<P>, force = false) => ({ onPress, onSelect, ...props }: any) => {
+const withHaptics = <P extends any>(Component: React.ComponentType<P>, force = false) => ({ onPress, onSelect, ...props }: any) => {
   const onHapticPress = (args: any) => {
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success)
     onPress?.(args)
@@ -209,7 +209,7 @@ const restyleFunctions = composeRestyleFunctions<Theme, RestyleProps>([
   border,
 ])
 
-export const Datepicker = ({ onPress, onSelect, ...props }: BoxProps<Theme> & UIDatepickerProps): JSX.Element => {
+export const Datepicker = ({ onSelect, ...props }: BoxProps<Theme> & UIDatepickerProps) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore: Unreachable code error
   const { style } = useRestyle(restyleFunctions, props)
@@ -217,12 +217,12 @@ export const Datepicker = ({ onPress, onSelect, ...props }: BoxProps<Theme> & UI
     viewRestyleFunctions,
     withHaptics<UIDatepickerProps>(UIDatepicker, true),
   )
-  return <Component { ...props } controlStyle={style} />
+  return <Component {...{ onSelect, ...props }} controlStyle={style} />
 }
 
 type InputProps = UIInputProps & TextProps<Theme>
 
-export const Input = (props: BoxProps<Theme> & InputProps): JSX.Element => {
+export const Input = (props: BoxProps<Theme> & InputProps) => {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore: Unreachable code error
   const { style } = useRestyle(restyleFunctions, props)
